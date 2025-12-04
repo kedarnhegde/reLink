@@ -1,4 +1,4 @@
-# ReLink - Setup Guide
+# ReLink
 
 ReLink is a digital identity platform that helps unhoused individuals build trust and access housing, healthcare, and employment through secure, verifiable digital credentials.
 
