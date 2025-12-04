@@ -17,6 +17,24 @@ https://github.com/user-attachments/assets/c06c6f09-ba62-4e6c-9f95-791a63fa124b
 - MySQL 8.0+
 - Git
 
+## Quick Start with Makefile
+
+For simplified setup and development, use the included Makefile:
+
+```bash
+# View all available commands
+make help
+
+# One-time setup
+make setup-db      # Create database
+make install       # Setup backend and frontend
+make seed          # Add sample data
+
+# Development (run in separate terminals)
+make backend-run   # Terminal 1
+make frontend-run  # Terminal 2
+```
+
 ## Initial Setup
 
 ### 1. Clone the Repository
@@ -45,6 +63,12 @@ sudo systemctl start mysql
 
 #### Create Database and User
 
+**Using Makefile (recommended):**
+```bash
+make setup-db
+```
+
+**Manual setup:**
 ```bash
 mysql -u root -p
 ```
@@ -60,6 +84,13 @@ EXIT;
 ```
 
 ### 3. Backend Setup
+
+**Using Makefile (recommended):**
+```bash
+make backend-setup
+```
+
+**Manual setup:**
 
 #### Navigate to backend directory
 
@@ -104,16 +135,28 @@ If you changed the database credentials, update the `DATABASE_URL` accordingly.
 
 The application will automatically create tables on first run. To manually run migrations:
 
+**Using Makefile:**
 ```bash
-python migrate_db.py
+make migrate
+```
+
+**Manual:**
+```bash
+cd backend && source venv/bin/activate && python migrate_db.py
 ```
 
 #### Seed database with sample data
 
 Populate the database with sample organizations, admins, participants, employers, announcements, certifications, and training sessions:
 
+**Using Makefile:**
 ```bash
-python seed_db.py
+make seed
+```
+
+**Manual:**
+```bash
+cd backend && source venv/bin/activate && python seed_db.py
 ```
 
 This will create:
@@ -143,8 +186,14 @@ Employers:
 
 #### Start the backend server
 
+**Using Makefile:**
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+make backend-run
+```
+
+**Manual:**
+```bash
+cd backend && source venv/bin/activate && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The backend API will be available at `http://localhost:8000`
@@ -152,6 +201,13 @@ The backend API will be available at `http://localhost:8000`
 API documentation: `http://localhost:8000/docs`
 
 ### 4. Frontend Setup
+
+**Using Makefile (recommended):**
+```bash
+make frontend-setup
+```
+
+**Manual setup:**
 
 Open a new terminal window/tab.
 
@@ -178,8 +234,14 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 #### Start the frontend development server
 
+**Using Makefile:**
 ```bash
-npm run dev
+make frontend-run
+```
+
+**Manual:**
+```bash
+cd fe && npm run dev
 ```
 
 The frontend will be available at `http://localhost:3000`
@@ -212,11 +274,24 @@ The frontend will be available at `http://localhost:3000`
 
 Always ensure both servers are running:
 
+**Using Makefile (recommended):**
+
+**Terminal 1 - Backend:**
+```bash
+make backend-run
+```
+
+**Terminal 2 - Frontend:**
+```bash
+make frontend-run
+```
+
+**Manual commands:**
+
 **Terminal 1 - Backend:**
 ```bash
 cd backend
 source venv/bin/activate  # or venv\Scripts\activate on Windows
-python seed_db.py  # Optional: Only needed once to populate sample data
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -242,6 +317,7 @@ Team-101/
 │   ├── src/
 │   │   └── app/        # Pages and components
 │   └── package.json    # Node dependencies
+├── Makefile            # Development commands
 └── README.md           # This file
 ```
 
@@ -298,8 +374,15 @@ Team-101/
 
 After modifying models, create and run migrations:
 
+**Using Makefile:**
+```bash
+make migrate
+```
+
+**Manual:**
 ```bash
 cd backend
+source venv/bin/activate
 python migrate_db.py
 ```
 
