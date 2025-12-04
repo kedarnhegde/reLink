@@ -303,18 +303,6 @@ cd backend
 python migrate_db.py
 ```
 
-## Production Deployment
-
-For production deployment:
-
-1. Change default admin password
-2. Use strong database credentials
-3. Set `ENV=production` in backend `.env`
-4. Use proper SSL certificates
-5. Configure CORS settings appropriately
-6. Use production-grade database (not localhost)
-7. Set up proper backup strategies
-
 ## Support
 
 For issues or questions, refer to:
